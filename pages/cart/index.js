@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import Head from "next/head";
 import { useShoppingCart } from "@/hooks/use-shopping-cart";
 import axios from "axios";
@@ -12,6 +11,15 @@ import {
   MinusSmIcon,
   PlusSmIcon,
 } from "@heroicons/react/outline";
+import { FiX, FiMinus, FiPlus } from "react-icons/fi";
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  HStack,
+  Image,
+} from "@chakra-ui/react";
 
 const Cart = () => {
   const { cartDetails, totalPrice, cartCount, addItem, removeItem, clearCart } =
@@ -39,18 +47,18 @@ const Cart = () => {
       <Head>
         <title>My Shopping Cart </title>
       </Head>
-      <div className="container xl:max-w-screen-xl mx-auto py-12 px-6">
+      <Container maxW="container.4xl">
         {cartCount > 0 ? (
           <>
             <h2 className="text-4xl font-semibold">Your shopping cart</h2>
             <p className="mt-1 text-xl">
               {cartCount} items{" "}
-              <button
+              <Button
                 onClick={clearCart}
                 className="opacity-50 hover:opacity-100 text-base capitalize"
               >
                 (Clear all)
-              </button>
+              </Button>
             </p>
           </>
         ) : (
@@ -68,23 +76,20 @@ const Cart = () => {
         )}
 
         {cartCount > 0 ? (
-          <div className="mt-12">
+          <Box mt={10}>
             {Object.entries(cartDetails).map(([key, product]) => (
-              <div
-                key={key}
-                className="flex justify-between space-x-4 hover:shadow-lg hover:border-opacity-50 border border-opacity-0 rounded-md p-4"
-              >
+              <HStack key={key}>
                 {/* Image + Name */}
                 <Link href={`/products/${product.id}`}>
                   <a className="flex items-center space-x-4 group">
-                    <div className="relative w-20 h-20 group-hover:scale-110 transition-transform">
+                    <Box size="sm" h={20} w={20}>
                       <Image
                         src={product.image}
                         alt={product.name}
                         layout="fill"
-                        objectFit="contain"
+                        objectFit="cover"
                       />
-                    </div>
+                    </Box>
                     <p className="font-semibold text-xl group-hover:underline">
                       {product.name}
                     </p>
@@ -92,40 +97,40 @@ const Cart = () => {
                 </Link>
 
                 {/* Price + Actions */}
-                <div className="flex items-center">
+                <HStack>
                   {/* Quantity */}
-                  <div className="flex items-center space-x-3">
-                    <button
+                  <Center>
+                    <Button
                       onClick={() => removeItem(product)}
                       disabled={product?.quantity <= 1}
                       className="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-current hover:bg-rose-100 hover:text-rose-500 rounded-md p-1"
                     >
-                      <MinusSmIcon className="w-6 h-6 flex-shrink-0" />
-                    </button>
+                      <FiMinus className="w-6 h-6 flex-shrink-0" />
+                    </Button>
                     <p className="font-semibold text-xl">{product.quantity}</p>
-                    <button
+                    <Button
                       onClick={() => addItem(product)}
                       className="hover:bg-green-100 hover:text-green-500 rounded-md p-1"
                     >
-                      <PlusSmIcon className="w-6 h-6 flex-shrink-0 " />
-                    </button>
-                  </div>
+                      <FiPlus className="w-6 h-6 flex-shrink-0 " />
+                    </Button>
+                  </Center>
 
                   {/* Price */}
                   <p className="font-semibold text-xl ml-16">
-                    <XIcon className="w-4 h-4 text-gray-500 inline-block" />
+                    <FiX className="w-4 h-4 text-gray-500 inline-block" />
                     {formatCurrency(product.price)}
                   </p>
 
                   {/* Remove item */}
-                  <button
+                  <Button
                     onClick={() => removeItem(product, product.quantity)}
                     className="ml-4 hover:text-rose-500"
                   >
-                    <XCircleIcon className="w-6 h-6 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity" />
-                  </button>
-                </div>
-              </div>
+                    <FiX className="w-6 h-6 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity" />
+                  </Button>
+                </HStack>
+              </HStack>
             ))}
 
             <div className="flex flex-col items-end border-t py-4 mt-8">
@@ -136,17 +141,17 @@ const Cart = () => {
                 </span>
               </p>
 
-              <button
+              <Button
                 onClick={redirectToCheckout}
                 disabled={redirecting}
                 className="border rounded py-2 px-6 bg-rose-500 hover:bg-rose-600 border-rose-500 hover:border-rose-600 focus:ring-4 focus:ring-opacity-50 focus:ring-rose-500 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-500 max-w-max mt-4"
               >
                 {redirecting ? "Redirecting..." : "Go to Checkout"}
-              </button>
+              </Button>
             </div>
-          </div>
+          </Box>
         ) : null}
-      </div>
+      </Container>
     </>
   );
 };

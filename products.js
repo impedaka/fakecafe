@@ -1,6 +1,6 @@
 const products = [
   {
-    id: "price_1JAE9cEy9j6mAC9ettoD2R0D",
+    id: "price_1Knu4fBdVGtKO9xDSHBr8ux3",
     name: "Americano",
     price: 3995,
     currency: "CAD",
@@ -11,7 +11,7 @@ const products = [
     },
   },
   {
-    id: "price_1JAEABEy9j6mAC9eYTnD6Rv7",
+    id: "price_1KnvPEBdVGtKO9xDbiL3TyLP",
     name: "Cappuccino",
     price: 5995,
     currency: "CAD",
