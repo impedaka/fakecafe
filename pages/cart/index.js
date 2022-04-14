@@ -5,12 +5,6 @@ import { useShoppingCart } from "@/hooks/use-shopping-cart";
 import axios from "axios";
 import { formatCurrency } from "@/lib/utils";
 import getStripe from "@/lib/get-stripe";
-import {
-  XCircleIcon,
-  XIcon,
-  MinusSmIcon,
-  PlusSmIcon,
-} from "@heroicons/react/outline";
 import { FiX, FiMinus, FiPlus } from "react-icons/fi";
 import {
   Box,
