@@ -72,7 +72,7 @@ const Cart = () => {
         {cartCount > 0 ? (
           <Box mt={10}>
             {Object.entries(cartDetails).map(([key, product]) => (
-              <HStack key={key}>
+              <HStack key={key} py={20}>
                 {/* Image + Name */}
                 <Link href={`/products/${product.id}`}>
                   <a className="flex items-center space-x-4 group">
