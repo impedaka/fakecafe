@@ -18,7 +18,7 @@ import {
 const ProductCard = (props) => {
   const { cartCount, addItem } = useShoppingCart();
   const [adding, setAdding] = useState(false);
-
+  console.log(props.currency);
   const toastId = useRef();
   const firstRun = useRef(true);
 
