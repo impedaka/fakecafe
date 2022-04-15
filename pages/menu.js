@@ -10,21 +10,26 @@ import {
   SimpleGrid,
   useBreakpoint,
 } from "@chakra-ui/react";
-import products from "products";
+import productinfo from "products";
 import Section from "@/components/Section";
 
-export default function Home() {
+export const getStaticProps = async () => {
+  const res = await fetch("https://www.starbucks.com/bff/ordering/409/hot");
+  const data = await res.json();
+  return {
+    props: { ninjas: data },
+  };
+};
+
+export default function Home({ ninjas }) {
   const [disabled, setDisabled] = useState(false);
-  /*const size = useBreakpoint({
-    base: "repeat(1, 1fr)",
-    md: "repeat(3, 1fr)",
-  }); */
+  console.log(ninjas.products[0].name);
   return (
     <>
       <Container maxW="container.4xl" gap={10}>
         <Container maxW="container.xl" pb="10">
           <SimpleGrid columns={[1, 2, 3]} gap={10} pt="20">
-            {products.map((product) => (
+            {productinfo.map((product) => (
               <Box>
                 <ProductCard
                   key={product.id}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { toast } from "react-hot-toast";
+
 import { useShoppingCart } from "@/hooks/use-shopping-cart";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Head from "next/head";
@@ -15,6 +15,7 @@ import {
   Image,
   Flex,
   VStack,
+  useToast,
   Button,
   Heading,
   SimpleGrid,
@@ -26,19 +27,27 @@ import {
 import products from "products";
 
 const Product = (props) => {
+  const toast = useToast();
   const router = useRouter();
   const { cartCount, addItem } = useShoppingCart();
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
 
-  const toastId = useRef();
+  //const toastId = useRef();
   const firstRun = useRef(true);
 
   const handleOnAddToCart = () => {
     setAdding(true);
-    toastId.current = toast.loading(
-      `Adding ${qty} item${qty > 1 ? "s" : ""}...`
-    );
+    /*toastId.current = toast.loading(
+      `adding ${qty} item${qty > 1 ? "s" : ""}...`
+    ); */
+    toast({
+      position: "top",
+      title: `adding ${qty} item${qty > 1 ? "s" : ""}...`,
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
     addItem(props, qty);
   };
 
@@ -49,8 +58,12 @@ const Product = (props) => {
     }
 
     setAdding(false);
-    toast.success(`${qty} ${props.name} added`, {
-      id: toastId.current,
+    toast({
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+      position: "top",
+      title: `${qty} ${props.name} added`,
     });
     setQty(1);
   }, [cartCount]);
@@ -145,6 +158,24 @@ const Product = (props) => {
             >
               Add to cart ({qty})
             </Button>
+            <Button
+              onClick={handleOnAddToCart}
+              disabled={adding}
+              rounded={"none"}
+              w={"full"}
+              mt={8}
+              size={"lg"}
+              py={"7"}
+              bg={useColorModeValue("gray.900", "gray.50")}
+              color={useColorModeValue("white", "gray.900")}
+              textTransform={"uppercase"}
+              _hover={{
+                transform: "translateY(2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Learn More
+            </Button>
           </Stack>
         </SimpleGrid>
       </Container>
@@ -167,6 +198,7 @@ export async function getStaticProps({ params }) {
   try {
     const props = products?.find((product) => product.id === params.id) ?? {};
 
+    console.log(props);
     return {
       props,
       // Next.js will attempt to re-generate the page:

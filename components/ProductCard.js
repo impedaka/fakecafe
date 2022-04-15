@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
+//import { toast } from "react-hot-toast";
 import { useShoppingCart } from "@/hooks/use-shopping-cart";
 import { formatCurrency } from "@/lib/utils";
 import { Rating } from "@/components/index";
@@ -9,6 +9,7 @@ import {
   Center,
   useColorModeValue,
   Heading,
+  useToast,
   Text,
   Stack,
   Image,
@@ -18,16 +19,16 @@ import {
 } from "@chakra-ui/react";
 
 const ProductCard = (props) => {
+  const toast = useToast();
   const { cartCount, addItem } = useShoppingCart();
   const [adding, setAdding] = useState(false);
-  const toastId = useRef();
+  //const toastId = useRef();
   const firstRun = useRef(true);
 
   const handleOnAddToCart = (event) => {
     event.preventDefault();
 
     setAdding(true);
-    toastId.current = toast.loading("Adding 1 item...");
 
     if (typeof props.onClickAdd === "function") {
       props.onClickAdd();
@@ -44,8 +45,12 @@ const ProductCard = (props) => {
 
     if (adding) {
       setAdding(false);
-      toast.success(`${props.name} added`, {
-        id: toastId.current,
+      toast({
+        title: `${props.name} added`,
+        position: "top",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
       });
     }
 
