@@ -25,46 +25,27 @@ export default function Navbar(props) {
   const { isOpen, onToggle } = useDisclosure();
   const { totalPrice, cartCount } = useShoppingCart();
   return (
-    <Box pr={20}>
+    <Box>
       <Flex
         color={props.ree}
         minH={"60px"}
         py={{ base: 10 }}
-        px={{ base: 20 }}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        borderColor={"black"}
+        align={"space-between"}
       >
-        <Flex
-          flex={{ base: 1, md: "auto" }}
-          ml={{ base: -2 }}
-          display={{ base: "flex", md: "none" }}
-        >
-          <IconButton
-            onClick={onToggle}
-            variant={"ghost"}
-            aria-label={"Toggle Navigation"}
-          />
-        </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+        <Flex flex={{ base: 1 }}>
           <Text
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             fontWeight={600}
             fontSize={"2xl"}
             color={props.ree}
           >
-            <Link href="/">FakeCafe Cafe</Link>
+            <Link href="/">FakeCafe</Link>
           </Text>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          mr={20}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={20}
-        >
+        <Stack flex={{ base: 1, md: 0 }} direction={"row"} spacing={10}>
           <Text fontWeight={600} fontSize="lg">
             <Link href="/menu">Shop</Link>
           </Text>
@@ -73,7 +54,7 @@ export default function Navbar(props) {
             <HStack>
               <FiShoppingCart size={20} />
               <Text>{formatCurrency(totalPrice)} </Text>
-              <span className="text-sm text-gray-500">({cartCount})</span>
+              <span>({cartCount})</span>
             </HStack>
           </Link>
         </Stack>

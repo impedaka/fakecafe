@@ -117,11 +117,11 @@ const Product = (props) => {
                   onClick={() => setQty((prev) => prev - 1)}
                   disabled={qty <= 1}
                 >
-                  <FiMinus className="w-6 h-6 flex-shrink-0" />
+                  <FiMinus />
                 </IconButton>
                 <Text p="3">{qty}</Text>
                 <IconButton onClick={() => setQty((prev) => prev + 1)}>
-                  <FiPlus className="w-6 h-6 flex-shrink-0 " />
+                  <FiPlus />
                 </IconButton>
               </HStack>
             </Stack>

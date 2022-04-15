@@ -52,7 +52,7 @@ const Cart = () => {
             <Heading>Your Order</Heading>
             <Text>
               {cartCount} items{" "}
-              <Button onClick={clearCart} colorScheme="teal" variant="link">
+              <Button onClick={clearCart} variant="link">
                 (Clear all)
               </Button>
             </Text>
@@ -98,29 +98,23 @@ const Cart = () => {
                     <Button
                       onClick={() => removeItem(product)}
                       disabled={product?.quantity <= 1}
-                      variant="outline"
-                      colorScheme="red"
                     >
-                      <FiMinus className="w-6 h-6 flex-shrink-0" />
+                      <FiMinus />
                     </Button>
                     <Text p="5">{product.quantity}</Text>
-                    <Button
-                      onClick={() => addItem(product)}
-                      colorScheme="green"
-                      variant={"outline"}
-                    >
-                      <FiPlus className="w-6 h-6 flex-shrink-0 " />
+                    <Button onClick={() => addItem(product)}>
+                      <FiPlus />
                     </Button>
                   </Center>
 
                   {/* Price */}
-                  <p className="font-semibold text-xl ml-16">
-                    x {formatCurrency(product.price)}
-                  </p>
+                  <p>x {formatCurrency(product.price)}</p>
 
                   {/* Remove item */}
                   <Button
-                    colorScheme={"red"}
+                    color="white"
+                    bg="black"
+                    _hover={{ bg: "alphaBlack.700" }}
                     onClick={() => removeItem(product, product.quantity)}
                   >
                     Remove
@@ -136,10 +130,11 @@ const Cart = () => {
               </Heading>
 
               <Button
-                colorScheme={"teal"}
+                color="white"
+                bg="black"
+                _hover={{ bg: "alphaBlack.700" }}
                 onClick={redirectToCheckout}
                 disabled={redirecting}
-                className="border rounded py-2 px-6 bg-rose-500 hover:bg-rose-600 border-rose-500 hover:border-rose-600 focus:ring-4 focus:ring-opacity-50 focus:ring-rose-500 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-500 max-w-max mt-4"
               >
                 {redirecting ? "Redirecting..." : "Go to Checkout"}
               </Button>

@@ -115,7 +115,9 @@ const ProductCard = (props) => {
           </Text>
 
           <Button
-            colorScheme={"teal"}
+            color="white"
+            bg="black"
+            _hover={{ bg: "blackAlpha.700" }}
             onClick={handleOnAddToCart}
             disabled={adding || props.disabled}
             variant="outline"
