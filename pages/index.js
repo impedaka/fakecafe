@@ -1,30 +1,53 @@
-import { useState } from "react";
-import { ProductCard } from "@/components/index";
-import { Box, Center, Container, Grid, HStack, Image } from "@chakra-ui/react";
-import products from "products";
+import {
+  Stack,
+  Flex,
+  Button,
+  Text,
+  VStack,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import Link from "next/link";
 
-export default function Home() {
-  const [disabled, setDisabled] = useState(false);
-
+export default function WithBackgroundImage() {
   return (
-    <>
-      <Container maxW="container.4xl" gap={10}>
-        <Container maxW="container.xl" pb="10">
-          <Grid templateColumns={"repeat(3, 1fr)"} gap={10} pt="20">
-            {products.map((product) => (
-              <Box>
-                <ProductCard
-                  key={product.id}
-                  disabled={disabled}
-                  onClickAdd={() => setDisabled(true)}
-                  onAddEnded={() => setDisabled(false)}
-                  {...product}
-                />
-              </Box>
-            ))}
-          </Grid>
-        </Container>
-      </Container>
-    </>
+    <Flex
+      w={"full"}
+      h={"100vh"}
+      backgroundImage={
+        "url(https://static.dezeen.com/uploads/2018/06/hono-izakaya-charlene-bourgeois-interiors-restaurant-quebec-city-canada_dezeen_2364_col_0.jpg)"
+      }
+      backgroundSize={"cover"}
+      backgroundPosition={"center center"}
+    >
+      <VStack
+        w={"full"}
+        justify={"center"}
+        align={"flex-start"}
+        px={useBreakpointValue({ base: 10, md: 20 })}
+        bgGradient={"linear(to-r, blackAlpha.600, transparent)"}
+      >
+        <Stack maxW={"3xl"} align={"flex-start"} spacing={6}>
+          <Text
+            color={"white"}
+            fontWeight={700}
+            lineHeight={1.2}
+            fontSize={useBreakpointValue({ base: "5xl", md: "6xl" })}
+          >
+            FakeCafe Cafe
+          </Text>
+          <Text color="white" fontSize={"2xl"}>
+            Hot Coffees - Cold Drinks - Hot Drinks - Bakery - Hot Breakfast
+          </Text>
+          <Button
+            size="lg"
+            bg={"white"}
+            color={"black"}
+            _hover={{ bg: "grey.200" }}
+          >
+            <Link href="/menu">Order Now</Link>
+          </Button>
+        </Stack>
+      </VStack>
+    </Flex>
   );
 }

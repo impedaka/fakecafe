@@ -13,12 +13,13 @@ import {
   Stack,
   Image,
   Button,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 
 const ProductCard = (props) => {
   const { cartCount, addItem } = useShoppingCart();
   const [adding, setAdding] = useState(false);
-  console.log(props.currency);
   const toastId = useRef();
   const firstRun = useRef(true);
 
@@ -103,17 +104,25 @@ const ProductCard = (props) => {
             {props.name}
           </Heading>
           <Stack direction={"row"} align={"center"}>
-            <Text fontWeight={500} fontSize={"xl"}>
-              {formatCurrency(props.price, props.currency)}
+            <Text mb="4">
+              <Rating rate={props?.rating?.rate} count={props?.rating?.count} />
             </Text>
           </Stack>
         </Stack>
+        <HStack justify="space-between">
+          <Text fontWeight={500} fontSize={"xl"}>
+            {formatCurrency(props.price, props.currency)}
+          </Text>
 
-        {/*} <Rating rate={props?.rating?.rate} count={props?.rating?.count} /> */}
-
-        <Button onClick={handleOnAddToCart} disabled={adding || props.disabled}>
-          {adding ? "Adding..." : "Add to cart"}
-        </Button>
+          <Button
+            colorScheme={"teal"}
+            onClick={handleOnAddToCart}
+            disabled={adding || props.disabled}
+            variant="outline"
+          >
+            {adding ? "Adding..." : "Add to cart"}
+          </Button>
+        </HStack>
       </Box>
     </Link>
   );

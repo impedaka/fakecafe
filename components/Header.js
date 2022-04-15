@@ -17,6 +17,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  HStack,
 } from "@chakra-ui/react";
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 
@@ -28,7 +29,7 @@ export default function Navbar(props) {
       <Flex
         color={props.ree}
         minH={"60px"}
-        py={{ base: 20 }}
+        py={{ base: 10 }}
         px={{ base: 20 }}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
@@ -53,7 +54,7 @@ export default function Navbar(props) {
             fontSize={"2xl"}
             color={props.ree}
           >
-            <Link href="/">Starbucks Cafe</Link>
+            <Link href="/">FakeCafe Cafe</Link>
           </Text>
         </Flex>
 
@@ -68,12 +69,12 @@ export default function Navbar(props) {
             <Link href="/menu">Shop</Link>
           </Text>
 
-          <FiSearch size={20} />
-
           <Link href="/cart">
-            <FiShoppingCart size={20} />
-            {formatCurrency(totalPrice)}{" "}
-            <span className="text-sm text-gray-500">({cartCount})</span>
+            <HStack>
+              <FiShoppingCart size={20} />
+              <Text>{formatCurrency(totalPrice)} </Text>
+              <span className="text-sm text-gray-500">({cartCount})</span>
+            </HStack>
           </Link>
         </Stack>
       </Flex>

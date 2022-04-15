@@ -1,13 +1,15 @@
+import { Text, Container } from "@chakra-ui/react";
 const Footer = () => (
-  <footer className="container xl:max-w-screen-xl mx-auto p-6 mt-8 text-center">
+  <Container justify="center" align="center" py={8}>
     <p>
       <a
         target="_blank"
         rel="noopener noreferrer"
         className="text-gray-500 hover:text-current"
       ></a>
+      <Text>Made with ❤️ by Alice Yu</Text>
     </p>
-  </footer>
+  </Container>
 );
 
 export default Footer;

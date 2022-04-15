@@ -15,6 +15,7 @@ import {
   Flex,
   Heading,
   HStack,
+  VStack,
   Image,
   Text,
 } from "@chakra-ui/react";
@@ -45,10 +46,10 @@ const Cart = () => {
       <Head>
         <title>My Order </title>
       </Head>
-      <Container maxW="container.4xl">
+      <Container maxW="container.4xl" justify="center" align="center">
         {cartCount > 0 ? (
           <>
-            <Heading>Your shopping cart</Heading>
+            <Heading>Your Order</Heading>
             <Text>
               {cartCount} items{" "}
               <Button onClick={clearCart} colorScheme="teal" variant="link">
@@ -59,19 +60,20 @@ const Cart = () => {
         ) : (
           <>
             <Heading>You didn't order anything!</Heading>
-            <Flex gap="2">
-              <Text>Check out our menu</Text>
-              <Link href="/" color="teal.500">
+
+            <Text>
+              Check out our menu{" "}
+              <Link href="/menu" color="teal.500">
                 here!
               </Link>
-            </Flex>
+            </Text>
           </>
         )}
 
         {cartCount > 0 ? (
-          <Box mt={10}>
+          <Container maxW="container.lg">
             {Object.entries(cartDetails).map(([key, product]) => (
-              <HStack key={key} py={20}>
+              <HStack key={key} py={10} justify="space-between">
                 {/* Image + Name */}
                 <Link href={`/products/${product.id}`}>
                   <Text>
@@ -128,10 +130,10 @@ const Cart = () => {
             ))}
 
             <Box>
-              <Text>
+              <Heading fontSize="xl" mb="2">
                 Total:
                 {formatCurrency(totalPrice)}
-              </Text>
+              </Heading>
 
               <Button
                 colorScheme={"teal"}
@@ -142,7 +144,7 @@ const Cart = () => {
                 {redirecting ? "Redirecting..." : "Go to Checkout"}
               </Button>
             </Box>
-          </Box>
+          </Container>
         ) : null}
       </Container>
     </Box>

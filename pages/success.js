@@ -44,8 +44,9 @@ const Success = () => {
           <Text>Loading...</Text>
         </Box>
       ) : (
-        <Box pt={20}>
-          <Heading mt={20}>Thanks for your order!</Heading>
+        <Box pt={20} mb={10}>
+          <Heading mt={20}>🎉</Heading>
+          <Heading>Thanks for your order!</Heading>
           <Text>Check your inbox for the receipt.</Text>
         </Box>
       )}
