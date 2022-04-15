@@ -24,7 +24,7 @@ export default function Navbar(props) {
   const { isOpen, onToggle } = useDisclosure();
   const { totalPrice, cartCount } = useShoppingCart();
   return (
-    <Box position={"fixed"} zIndex="100" top={0} w={"100%"} pr={20}>
+    <Box pr={20}>
       <Flex
         color={props.ree}
         minH={"60px"}

@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <>
       <Container maxW="container.4xl" gap={10}>
-        <Container maxW="container.xl" pt={20} pb="10">
+        <Container maxW="container.xl" pb="10">
           <Grid templateColumns={"repeat(3, 1fr)"} gap={10} pt="20">
             {products.map((product) => (
-              <Box pt="20">
+              <Box>
                 <ProductCard
                   key={product.id}
                   disabled={disabled}

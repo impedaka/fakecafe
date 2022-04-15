@@ -2,7 +2,7 @@ const products = [
   {
     id: "price_1Knu4fBdVGtKO9xDSHBr8ux3",
     name: "Americano",
-    price: 365,
+    price: 445,
     currency: "CAD",
     image: "/drinks/americano.png",
     rating: {
@@ -13,7 +13,7 @@ const products = [
   {
     id: "price_1KnvPEBdVGtKO9xDbiL3TyLP",
     name: "Cappuccino",
-    price: 365,
+    price: 525,
     currency: "CAD",
     image: "/drinks/cappuccino.png",
     rating: {
