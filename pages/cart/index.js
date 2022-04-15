@@ -80,9 +80,9 @@ const Cart = () => {
         )}
 
         {cartCount > 0 ? (
-          <Container maxW="container.lg" gap="5" bg="white" p="10" mt="10">
+          <Container maxW="container.lg" gap="5" bg="white" py="20" mt="10">
             <TableContainer>
-              <Table size="sm">
+              <Table size="lg">
                 <Thead>
                   <Tr>
                     <Th>Items</Th>
@@ -143,7 +143,7 @@ const Cart = () => {
               </Table>
             </TableContainer>
 
-            <Box p="5">
+            <Box py="5">
               <Heading fontSize="xl" mb="2">
                 Total:
                 {formatCurrency(totalPrice)}
@@ -156,7 +156,7 @@ const Cart = () => {
                 onClick={redirectToCheckout}
                 disabled={redirecting}
               >
-                {redirecting ? "Redirecting..." : "Go to Checkout"}
+                {redirecting ? "Redirecting..." : "Checkout"}
               </Button>
             </Box>
             <Text>

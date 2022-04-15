@@ -48,16 +48,18 @@ export default function CallToActionWithVideo() {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
           >
-            <Button
-              size={"lg"}
-              fontWeight={"normal"}
-              px={6}
-              bg="black"
-              color="white"
-              _hover={{ bg: "blackAlpha.700" }}
-            >
-              <Link href="/menu">Order Now!</Link>
-            </Button>
+            <Link href="/menu">
+              <Button
+                size={"lg"}
+                fontWeight={"normal"}
+                px={6}
+                bg="black"
+                color="white"
+                _hover={{ bg: "blackAlpha.700" }}
+              >
+                Order Now!
+              </Button>
+            </Link>
           </Stack>
         </Stack>
         <Flex
