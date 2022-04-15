@@ -18,6 +18,15 @@ import {
   VStack,
   Image,
   Text,
+  TableCaption,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  TableContainer,
+  Td,
+  Tfoot,
 } from "@chakra-ui/react";
 
 const Cart = () => {
@@ -71,59 +80,70 @@ const Cart = () => {
         )}
 
         {cartCount > 0 ? (
-          <Container maxW="container.lg">
-            {Object.entries(cartDetails).map(([key, product]) => (
-              <HStack key={key} py={10} justify="space-between">
-                {/* Image + Name */}
-                <Link href={`/products/${product.id}`}>
-                  <Text>
-                    <HStack>
-                      <Box size="sm" h={20} w={20}>
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </Box>
-                      <Text>{product.name}</Text>
-                    </HStack>
-                  </Text>
-                </Link>
+          <Container maxW="container.lg" gap="5" bg="white" p="10" mt="10">
+            <TableContainer>
+              <Table size="sm">
+                <Thead>
+                  <Tr>
+                    <Th>Items</Th>
+                    <Th>Quantity and Price</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {Object.entries(cartDetails).map(([key, product]) => (
+                    <Tr key={key}>
+                      <Link href={`/products/${product.id}`}>
+                        <Td>
+                          {" "}
+                          <Box size="sm" h={20} w={20}>
+                            <Image
+                              src={product.image}
+                              alt={product.name}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </Box>
+                          {product.name}
+                        </Td>
+                      </Link>
+                      {/* Price + Actions */}
+                      <Td>
+                        {/* Quantity */}
+                        <Center gap="5">
+                          <Button
+                            onClick={() => removeItem(product)}
+                            disabled={product?.quantity <= 1}
+                          >
+                            <FiMinus />
+                          </Button>
+                          <Text p="5">{product.quantity}</Text>
+                          <Button onClick={() => addItem(product)}>
+                            <FiPlus />
+                          </Button>
 
-                {/* Price + Actions */}
-                <HStack>
-                  {/* Quantity */}
-                  <Center>
-                    <Button
-                      onClick={() => removeItem(product)}
-                      disabled={product?.quantity <= 1}
-                    >
-                      <FiMinus />
-                    </Button>
-                    <Text p="5">{product.quantity}</Text>
-                    <Button onClick={() => addItem(product)}>
-                      <FiPlus />
-                    </Button>
-                  </Center>
+                          {/* Price */}
+                          <p>x {formatCurrency(product.price)}</p>
+                        </Center>
+                      </Td>
+                      <Td>
+                        {/* Remove item */}
+                        <Button
+                          color="white"
+                          bg="black"
+                          _hover={{ bg: "alphaBlack.700" }}
+                          onClick={() => removeItem(product, product.quantity)}
+                        >
+                          Remove
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+                <Tfoot></Tfoot>
+              </Table>
+            </TableContainer>
 
-                  {/* Price */}
-                  <p>x {formatCurrency(product.price)}</p>
-
-                  {/* Remove item */}
-                  <Button
-                    color="white"
-                    bg="black"
-                    _hover={{ bg: "alphaBlack.700" }}
-                    onClick={() => removeItem(product, product.quantity)}
-                  >
-                    Remove
-                  </Button>
-                </HStack>
-              </HStack>
-            ))}
-
-            <Box>
+            <Box p="5">
               <Heading fontSize="xl" mb="2">
                 Total:
                 {formatCurrency(totalPrice)}
@@ -139,6 +159,10 @@ const Cart = () => {
                 {redirecting ? "Redirecting..." : "Go to Checkout"}
               </Button>
             </Box>
+            <Text>
+              {" "}
+              When testing, use the card number: 4242 4242 4242 4242.
+            </Text>
           </Container>
         ) : null}
       </Container>
