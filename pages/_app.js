@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <CartProvider>
-        <Box bg="#E8DCD1" minH="100vh">
+        <Box minH="100vh">
           <Container maxW="container.xl">
             <AnimatePresence exitBeforeEnter initial={true}>
               <Header />

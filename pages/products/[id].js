@@ -16,17 +16,22 @@ import {
   Flex,
   VStack,
   useToast,
+  HStack,
+  IconButton,
   Button,
   Heading,
   SimpleGrid,
   StackDivider,
   useColorModeValue,
-  IconButton,
-  HStack,
+  VisuallyHidden,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
+
 import products from "products";
 
-const Product = (props) => {
+const Product = ({ prod, data }) => {
+  console.log(data);
   const toast = useToast();
   const router = useRouter();
   const { cartCount, addItem } = useShoppingCart();
@@ -48,7 +53,7 @@ const Product = (props) => {
       duration: 9000,
       isClosable: true,
     });
-    addItem(props, qty);
+    addItem(prod, qty);
   };
 
   useEffect(() => {
@@ -63,7 +68,7 @@ const Product = (props) => {
       duration: 9000,
       isClosable: true,
       position: "top",
-      title: `${qty} ${props.name} added`,
+      title: `${qty} ${prod.name} added`,
     });
     setQty(1);
   }, [cartCount]);
@@ -78,7 +83,7 @@ const Product = (props) => {
   ) : (
     <>
       <Head>
-        <title>{props.name}</title>
+        <title>{prod.name}</title>
       </Head>
       <Container maxW={"7xl"} pt={20}>
         <SimpleGrid
@@ -90,7 +95,7 @@ const Product = (props) => {
             <Image
               rounded={"md"}
               alt={"product image"}
-              src={props.image}
+              src={prod.image}
               fit={"cover"}
               align={"center"}
               w={"100%"}
@@ -104,14 +109,14 @@ const Product = (props) => {
                 fontWeight={600}
                 fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
               >
-                {props.name}
+                {prod.name}
               </Heading>
               <Text
                 color={useColorModeValue("gray.900", "gray.400")}
                 fontWeight={300}
                 fontSize={"2xl"}
               >
-                {formatCurrency(props.price)}
+                {formatCurrency(prod.price)}
               </Text>
             </Box>
 
@@ -124,21 +129,66 @@ const Product = (props) => {
                 />
               }
             >
-              <Text fontSize="md">Quantity:</Text>
-              <HStack>
-                <IconButton
-                  onClick={() => setQty((prev) => prev - 1)}
-                  disabled={qty <= 1}
-                >
-                  <FiMinus />
-                </IconButton>
-                <Text p="3">{qty}</Text>
-                <IconButton onClick={() => setQty((prev) => prev + 1)}>
-                  <FiPlus />
-                </IconButton>
-              </HStack>
+              <Text
+                color={useColorModeValue("gray.500", "gray.400")}
+                fontSize={"2xl"}
+                fontWeight={"300"}
+              >
+                {data.products[0].description}
+              </Text>
+              <Box>
+                <Text fontSize="lg">Quantity:</Text>
+                <HStack>
+                  <IconButton
+                    onClick={() => setQty((prev) => prev - 1)}
+                    disabled={qty <= 1}
+                  >
+                    <FiMinus />
+                  </IconButton>
+                  <Text fontSize={"lg"} p="3">
+                    {qty}
+                  </Text>
+                  <IconButton onClick={() => setQty((prev) => prev + 1)}>
+                    <FiPlus />
+                  </IconButton>
+                </HStack>
+              </Box>
             </Stack>
+            <Box>
+              <Text
+                fontSize={{ base: "16px", lg: "18px" }}
+                color={useColorModeValue("yellow.500", "yellow.300")}
+                fontWeight={"500"}
+                textTransform={"uppercase"}
+                mb={"4"}
+              >
+                Nutrition Details
+              </Text>
 
+              <List spacing={2}>
+                <ListItem>
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Calories:
+                  </Text>{" "}
+                  {data.products[0].sizes[0].nutrition.calories.displayValue}
+                </ListItem>
+                <ListItem>
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Serving Size:
+                  </Text>{" "}
+                  {data.products[0].sizes[0].nutrition.servingSize.displayValue}
+                </ListItem>
+                <ListItem>
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Calories from Fat:
+                  </Text>{" "}
+                  {
+                    data.products[0].sizes[0].nutrition.caloriesFromFat
+                      .displayValue
+                  }
+                </ListItem>
+              </List>
+            </Box>
             {/* Add to cart button */}
             <Button
               onClick={handleOnAddToCart}
@@ -157,24 +207,6 @@ const Product = (props) => {
               }}
             >
               Add to cart ({qty})
-            </Button>
-            <Button
-              onClick={handleOnAddToCart}
-              disabled={adding}
-              rounded={"none"}
-              w={"full"}
-              mt={8}
-              size={"lg"}
-              py={"7"}
-              bg={useColorModeValue("gray.900", "gray.50")}
-              color={useColorModeValue("white", "gray.900")}
-              textTransform={"uppercase"}
-              _hover={{
-                transform: "translateY(2px)",
-                boxShadow: "lg",
-              }}
-            >
-              Learn More
             </Button>
           </Stack>
         </SimpleGrid>
@@ -196,11 +228,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const props = products?.find((product) => product.id === params.id) ?? {};
+    const prod = products?.find((product) => product.id === params.id) ?? {};
+    console.log(prod);
+    const res = await fetch(
+      `https://www.starbucks.com/bff/ordering/${prod.num}/hot`
+    );
+    const data = await res.json();
 
-    console.log(props);
     return {
-      props,
+      props: { data, prod },
       // Next.js will attempt to re-generate the page:
       // - When a request comes in
       // - At most once every second
