@@ -11,6 +11,7 @@ import {
   useBreakpoint,
 } from "@chakra-ui/react";
 import products from "products";
+import Section from "@/components/Section";
 
 export default function Home() {
   const [disabled, setDisabled] = useState(false);

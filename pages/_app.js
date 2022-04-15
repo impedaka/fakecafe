@@ -3,7 +3,8 @@ import { CartProvider } from "@/hooks/use-shopping-cart";
 import { Header, Footer } from "@/components/index";
 import { Toaster } from "react-hot-toast";
 import { Box, ChakraProvider, Container } from "@chakra-ui/react";
-
+import { AnimatePresence } from "framer-motion";
+import Section from "@/components/Section";
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
@@ -30,9 +31,13 @@ function MyApp({ Component, pageProps }) {
       <CartProvider>
         <Box bg="#E8DCD1" minH="100vh">
           <Container maxW="container.xl">
-            <Header />
-            <Component {...pageProps} />
-            <Footer />
+            <AnimatePresence exitBeforeEnter initial={true}>
+              <Header />
+              <Section delay={0.1}>
+                <Component {...pageProps} />
+              </Section>
+              <Footer />
+            </AnimatePresence>
           </Container>
         </Box>
       </CartProvider>
