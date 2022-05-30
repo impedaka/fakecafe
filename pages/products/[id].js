@@ -134,7 +134,7 @@ const Product = ({ prod, data }) => {
                 fontSize={"2xl"}
                 fontWeight={"300"}
               >
-                {data.products[0].description}
+                {prod.more}
               </Text>
               <Box>
                 <Text fontSize="lg">Quantity:</Text>
@@ -154,41 +154,6 @@ const Product = ({ prod, data }) => {
                 </HStack>
               </Box>
             </Stack>
-            <Box>
-              <Text
-                fontSize={{ base: "16px", lg: "18px" }}
-                color={useColorModeValue("yellow.500", "yellow.300")}
-                fontWeight={"500"}
-                textTransform={"uppercase"}
-                mb={"4"}
-              >
-                Nutrition Details
-              </Text>
-
-              <List spacing={2}>
-                <ListItem>
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Calories:
-                  </Text>{" "}
-                  {data.products[0].sizes[0].nutrition.calories.displayValue}
-                </ListItem>
-                <ListItem>
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Serving Size:
-                  </Text>{" "}
-                  {data.products[0].sizes[0].nutrition.servingSize.displayValue}
-                </ListItem>
-                <ListItem>
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Calories from Fat:
-                  </Text>{" "}
-                  {
-                    data.products[0].sizes[0].nutrition.caloriesFromFat
-                      .displayValue
-                  }
-                </ListItem>
-              </List>
-            </Box>
             {/* Add to cart button */}
             <Button
               onClick={handleOnAddToCart}

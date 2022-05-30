@@ -1,17 +1,9 @@
 import { useState } from "react";
 import { ProductCard } from "@/components/index";
-import {
-  Box,
-  Center,
-  Container,
-  Grid,
-  HStack,
-  Image,
-  SimpleGrid,
-  useBreakpoint,
-} from "@chakra-ui/react";
+import NextLink from "next/link";
+
+import { Box, Container, Link, SimpleGrid } from "@chakra-ui/react";
 import productinfo from "products";
-import Section from "@/components/Section";
 
 export default function Home({ ninjas }) {
   const [disabled, setDisabled] = useState(false);
@@ -21,15 +13,19 @@ export default function Home({ ninjas }) {
         <Container maxW="container.xl" pb="10">
           <SimpleGrid columns={[1, 2, 3]} gap={10} pt="20">
             {productinfo.map((product) => (
-              <Box>
-                <ProductCard
-                  key={product.id}
-                  disabled={disabled}
-                  onClickAdd={() => setDisabled(true)}
-                  onAddEnded={() => setDisabled(false)}
-                  {...product}
-                />
-              </Box>
+              <NextLink href={`/products/${product.id}`} passHref>
+                <Link>
+                  <Box>
+                    <ProductCard
+                      key={product.id}
+                      disabled={disabled}
+                      onClickAdd={() => setDisabled(true)}
+                      onAddEnded={() => setDisabled(false)}
+                      {...product}
+                    />
+                  </Box>
+                </Link>
+              </NextLink>
             ))}
           </SimpleGrid>
         </Container>
