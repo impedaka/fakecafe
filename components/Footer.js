@@ -1,6 +1,6 @@
 import { Text, Container } from "@chakra-ui/react";
 const Footer = () => (
-  <Container justify="center" align="center" py={8}>
+  <Container justify="center" align="center" py="4">
     <p>
       <a target="_blank" rel="noopener noreferrer"></a>
       <Text>Made with ❤️ by Alice Yu</Text>

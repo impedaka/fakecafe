@@ -30,15 +30,13 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <CartProvider>
         <Box minH="100vh">
-          <Container maxW="container.xl">
-            <AnimatePresence exitBeforeEnter initial={true}>
-              <Header />
-              <Section delay={0.1}>
-                <Component {...pageProps} />
-              </Section>
-              <Footer />
-            </AnimatePresence>
-          </Container>
+          <AnimatePresence exitBeforeEnter initial={true}>
+            <Header />
+            <Section delay={0.1}>
+              <Component {...pageProps} />
+            </Section>
+            <Footer />
+          </AnimatePresence>
         </Box>
       </CartProvider>
     </ChakraProvider>

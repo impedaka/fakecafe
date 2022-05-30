@@ -18,6 +18,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   HStack,
+  Container,
 } from "@chakra-ui/react";
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 
@@ -25,11 +26,12 @@ export default function Navbar(props) {
   const { isOpen, onToggle } = useDisclosure();
   const { totalPrice, cartCount } = useShoppingCart();
   return (
-    <Box>
+    <Box px="10">
       <Flex
         color={props.ree}
         minH={"60px"}
-        py={{ base: 10 }}
+        py={{ base: 5 }}
+        px="10"
         borderStyle={"solid"}
         borderColor={"black"}
         align={"space-between"}

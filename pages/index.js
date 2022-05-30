@@ -7,9 +7,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import Navbar from "../Components/Navbar";
-import Cart from "./cart";
-import { useState, useContext } from "react";
+import Navbar from "../components/Header";
 export default function WithBackgroundImage() {
   return (
     <Flex
@@ -21,7 +19,6 @@ export default function WithBackgroundImage() {
       backgroundSize={"cover"}
       backgroundPosition={"center center"}
     >
-      <Navbar ree="white" />
       <VStack
         w={"full"}
         justify={"center"}
